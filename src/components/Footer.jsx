@@ -1,29 +1,66 @@
-import { WHATSAPP } from '../data/products'
+import Logo from './Logo'
+import { FacebookIcon, InstagramIcon, WhatsAppIcon } from './BrandIcons'
+import { CATEGORIES } from '../data/products'
+import { SITE, whatsappUrl } from '../data/site'
 
-export default function Footer() {
+const NAV = [
+  ['#inicio', 'Inicio'],
+  ['#nosotros', 'Nosotros'],
+  ['#categorias', 'Categorías'],
+  ['#productos', 'Productos'],
+  ['#como-pedir', 'Cómo pedir'],
+  ['#instagram', 'Instagram'],
+  ['#contacto', 'Contacto'],
+]
+
+export default function Footer({ onPickCategory }) {
   return (
-    <>
-      <section id="contacto">
-        <div className="wrap">
-          <h2>Contacto</h2>
-          <p className="sub">Asesores disponibles para tomar su pedido.</p>
-          <div className="cols">
-            <div>
-              <h3>WhatsApp ventas</h3>
-              <p><a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener">+57 320 994 9163</a></p>
-              <p>Instagram: <a href="https://www.instagram.com/cosmetikhud/" target="_blank" rel="noopener">@cosmetikhud</a></p>
+    <footer className="site-footer">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <Logo inverse />
+            <p>{SITE.tagline}.</p>
+            <div className="social">
+              <a href={whatsappUrl()} target="_blank" rel="noopener" aria-label="WhatsApp"><WhatsAppIcon size={18} /></a>
+              <a href={`https://www.instagram.com/${SITE.instagram}/`} target="_blank" rel="noopener" aria-label="Instagram"><InstagramIcon size={18} /></a>
+              <a href={`https://www.facebook.com/${SITE.facebook}`} target="_blank" rel="noopener" aria-label="Facebook"><FacebookIcon size={18} /></a>
             </div>
-            <div><h3>Dirección</h3><p>[Dirección del local — por completar]</p><p>Bogotá, Colombia</p></div>
-            <div><h3>Horario</h3><p>[Lunes a viernes — por completar]</p><p>[Sábados — por completar]</p></div>
+          </div>
+          <nav className="footer-col" aria-label="Secciones">
+            <h3>Navegación</h3>
+            <ul>{NAV.map(([href, label]) => <li key={href}><a href={href}>{label}</a></li>)}</ul>
+          </nav>
+          <div className="footer-col">
+            <h3>Categorías</h3>
+            <ul>
+              {CATEGORIES.map(c => (
+                <li key={c.name}><button type="button" onClick={() => onPickCategory(c.name)}>{c.name}</button></li>
+              ))}
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h3>Contacto</h3>
+            <ul>
+              <li><a href={whatsappUrl()} target="_blank" rel="noopener">{SITE.phoneDisplay}</a></li>
+              <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+              <li>{SITE.city}</li>
+              {SITE.hours && <li>{SITE.hours}</li>}
+            </ul>
           </div>
         </div>
-      </section>
-      <footer>
-        <div className="wrap">
-          CosmetikHud es un distribuidor independiente y no tiene afiliación, patrocinio ni representación de los propietarios de las marcas mencionadas; todos los nombres y marcas pertenecen a sus respectivos titulares. Los productos se venden exclusivamente a profesionales de la salud con licencia o registro vigente, para uso profesional.
+
+        <p className="legal">
+          CosmetikHud es un distribuidor independiente y no tiene afiliación, patrocinio ni representación
+          de los propietarios de las marcas mencionadas; todos los nombres y marcas pertenecen a sus
+          respectivos titulares. Los productos se venden exclusivamente a profesionales de la salud con
+          licencia o registro vigente, para uso profesional.
+        </p>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} CosmetikHud. Todos los derechos reservados.</span>
+          <span className="footer-motto">Tu práctica, nuestro compromiso.</span>
         </div>
-      </footer>
-      <a className="fab" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener">WhatsApp</a>
-    </>
+      </div>
+    </footer>
   )
 }

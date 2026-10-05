@@ -7,4 +7,7 @@ HTMLDialogElement.prototype.showModal = function () { this.setAttribute('open', 
 HTMLDialogElement.prototype.close = function () { this.removeAttribute('open'); this.dispatchEvent(new Event('close')) }
 Element.prototype.scrollIntoView = () => {}
 
-afterEach(cleanup)
+afterEach(() => {
+  cleanup()
+  localStorage.clear() // the cart persists in localStorage
+})

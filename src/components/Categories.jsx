@@ -1,18 +1,30 @@
+import { ArrowRight, Droplet, Sparkles, Syringe } from 'lucide-react'
+import SectionHeading from './SectionHeading'
 import { CATEGORIES, PRODUCTS } from '../data/products'
+
+const ICONS = { syringe: Syringe, droplet: Droplet, sparkles: Sparkles }
 
 export default function Categories({ onPick }) {
   return (
-    <section id="categorias">
-      <div className="wrap">
-        <h2>Categorías</h2>
-        <p className="sub">Elija una línea para filtrar el catálogo.</p>
-        <div className="cats">
-          {CATEGORIES.map(c => {
+    <section className="section section--soft" id="categorias">
+      <div className="container">
+        <SectionHeading index="02" label="Categorías" title="Nuestras" accent="líneas">
+          Productos seleccionados para resultados excepcionales.
+        </SectionHeading>
+        <div className="cat-grid">
+          {CATEGORIES.map((c, i) => {
+            const Icon = ICONS[c.icon]
             const n = PRODUCTS.filter(p => p.category === c.name).length
             return (
-              <button key={c.name} className="cat" onClick={() => onPick(c.name)}>
-                <strong>{c.name}</strong>
-                <small>{n} producto{n === 1 ? '' : 's'}</small>
+              <button key={c.name} type="button" className="cat-card" onClick={() => onPick(c.name)}>
+                <span className="cat-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span className="cat-icon"><Icon size={26} strokeWidth={1.4} aria-hidden="true" /></span>
+                <h3>{c.name}</h3>
+                <p>{c.description}</p>
+                <span className="cat-foot">
+                  <span className="cat-count">{n} producto{n === 1 ? '' : 's'}</span>
+                  <span className="cat-link">Ver productos <ArrowRight size={16} aria-hidden="true" /></span>
+                </span>
               </button>
             )
           })}

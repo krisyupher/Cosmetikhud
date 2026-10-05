@@ -1,19 +1,51 @@
-import { WHATSAPP } from '../data/products'
+import { Banknote, ShieldCheck, Truck } from 'lucide-react'
+import { WhatsAppIcon } from './BrandIcons'
+import { whatsappUrl } from '../data/site'
+import hero from '../assets/images/hero.webp'
+
+const TRUST = [
+  [ShieldCheck, '100% originales', 'Productos certificados'],
+  [Banknote, 'Pago contra entrega', 'En todo el país'],
+  [Truck, 'Envíos de 1 a 3 días', 'Inmediato en Bogotá'],
+]
 
 export default function Hero() {
   return (
     <section className="hero" id="inicio">
-      <div className="wrap">
-        <h1>Importación directa para profesionales de la medicina estética</h1>
-        <p>Distribuimos al por mayor productos 100% originales, con trazabilidad garantizada, entrega inmediata en Bogotá y envíos a todo el país en 1–3 días hábiles.</p>
-        <div className="btns">
-          <a className="btn p" href="#productos">Ver catálogo</a>
-          <a className="btn w" href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener">Escribir por WhatsApp</a>
+      <svg className="hero-plus" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M36 2h28v34h34v28H64v34H36V64H2V36h34z" />
+      </svg>
+      <div className="container hero-grid">
+        <div className="hero-copy">
+          <p className="eyebrow">Distribución especializada</p>
+          <h1>
+            Importación directa
+            <span className="accent">para profesionales de la estética</span>
+          </h1>
+          <span className="gold-rule" aria-hidden="true" />
+          <p className="hero-lead">
+            Toxina botulínica, ácido hialurónico y bioestimuladores de laboratorios líderes,
+            con trazabilidad garantizada y atención personalizada.
+          </p>
+          <div className="hero-ctas">
+            <a className="btn btn-primary" href="#productos">Ver catálogo</a>
+            <a className="btn btn-outline" href={whatsappUrl('Hola CosmetikHud, quisiera hablar con un asesor.')}
+              target="_blank" rel="noopener">
+              <WhatsAppIcon size={18} /> Hablar con un asesor
+            </a>
+          </div>
+          <ul className="hero-trust">
+            {TRUST.map(([Icon, title, text]) => (
+              <li key={title}>
+                <Icon size={26} strokeWidth={1.4} aria-hidden="true" />
+                <span><strong>{title}</strong>{text}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="trust">
-          <span>✔ 100% Originales</span>
-          <span>✔ Envíos a todo el país</span>
-          <span>✔ Pago Contra-Entrega</span>
+        <div className="hero-media">
+          <img src={hero} alt="Viales CosmetikHud sobre un pedestal de mármol" width="804" height="972"
+            fetchpriority="high" />
         </div>
       </div>
     </section>

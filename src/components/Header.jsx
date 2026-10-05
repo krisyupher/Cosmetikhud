@@ -1,24 +1,67 @@
+import { useEffect, useState } from 'react'
+import { Menu, Search, ShoppingBag, X } from 'lucide-react'
+import Logo from './Logo'
+import { SITE, whatsappUrl } from '../data/site'
+
+const NAV = [
+  ['#inicio', 'Inicio'],
+  ['#categorias', 'Categorías'],
+  ['#productos', 'Productos'],
+  ['#contacto', 'Contacto'],
+]
+
 export default function Header({ cartCount, onSearch, onCart }) {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header>
-      <div className="wrap bar">
-        <a className="logo" href="#inicio"><b>CH</b>CosmetikHud</a>
-        <nav>
-          <a href="#inicio">Inicio</a>
-          <a href="#categorias">Categorías</a>
-          <a href="#productos">Productos</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
-        <div className="icons">
-          <button className="ib" onClick={onSearch} aria-label="Buscar">
-            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="9" cy="9" r="6" /><path d="M14 14l4 4" /></svg>
-          </button>
-          <button className="ib" onClick={onCart} aria-label="Carrito">
-            <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h3l2 11h11l2-8H6" /><circle cx="9" cy="19" r="1.3" /><circle cx="17" cy="19" r="1.3" /></svg>
-            <span className="badge">{cartCount}</span>
-          </button>
+    <>
+      <div className="topbar">
+        <div className="container topbar-inner">
+          <p>Venta exclusiva para profesionales de la salud</p>
+          <p className="topbar-extra">
+            Envíos a todo Colombia <span aria-hidden="true">·</span> Pago contra entrega{' '}
+            <span aria-hidden="true">·</span>{' '}
+            <a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp {SITE.phoneDisplay}</a>
+          </p>
         </div>
       </div>
-    </header>
+
+      <header className={`site-header${scrolled ? ' is-scrolled' : ''}`}>
+        <div className="container nav-bar">
+          <a className="brand" href="#inicio" aria-label="CosmetikHud, ir al inicio">
+            <Logo />
+          </a>
+
+          <nav id="main-nav" className={`main-nav${menuOpen ? ' is-open' : ''}`} aria-label="Principal">
+            {NAV.map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>
+            ))}
+          </nav>
+
+          <div className="nav-actions">
+            <button className="icon-btn" onClick={onSearch} aria-label="Buscar productos">
+              <Search size={20} strokeWidth={1.6} />
+            </button>
+            <button className="icon-btn cart-btn" onClick={onCart}
+              aria-label={`Tu pedido, ${cartCount} ${cartCount === 1 ? 'producto' : 'productos'}`}>
+              <ShoppingBag size={20} strokeWidth={1.6} />
+              {cartCount > 0 && <span className="badge">{cartCount}</span>}
+            </button>
+            <button className="icon-btn menu-btn" onClick={() => setMenuOpen(o => !o)}
+              aria-expanded={menuOpen} aria-controls="main-nav" aria-label="Menú">
+              {menuOpen ? <X size={22} strokeWidth={1.6} /> : <Menu size={22} strokeWidth={1.6} />}
+            </button>
+          </div>
+        </div>
+      </header>
+    </>
   )
 }

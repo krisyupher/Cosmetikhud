@@ -8,3 +8,6 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 graphify-out
+
+# Fuentes de diseño (~1 GB: PSD, AI, PDF). El sitio usa las versiones web de src/assets.
+src/design/

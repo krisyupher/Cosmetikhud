@@ -4,12 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-CosmetikHud: Spanish-language B2B storefront for a Colombian importer of aesthetic-medicine products (botulinum toxins, hyaluronic acid, biostimulators), sold only to licensed professionals. React 18 + Vite, no router, no backend, no tests or linter configured.
+CosmetikHud: Spanish-language B2B storefront for a Colombian importer of aesthetic-medicine products (botulinum toxins, hyaluronic acid, biostimulators), sold only to licensed professionals. React 18 + Vite, no router, no backend, Vitest tests, no linter.
 
 ## Commands
 
 - `npm run dev` — Vite dev server
-- `npm run build` — production build to `dist/` (this is the only verification available; there is no test suite)
+- `npm run build` — production build to `dist/` 
+- `npm test` — Vitest + Testing Library (jsdom); single file: `npx vitest run src/App.test.jsx`, single test: `-t "name"`. `src/test/setup.js` polyfills <dialog> and scrollIntoView for jsdom
 - `docker compose up --build -d` — builds (Node build stage, nginx serve stage) and serves on http://localhost:8080; stop with `docker compose down`
 
 ## Architecture

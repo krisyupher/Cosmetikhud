@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CosmetikHud — Distribución estética profesional</title>
+<meta name="description" content="Importador directo de productos de medicina estética para profesionales certificados. 100% originales, envíos en Bogotá y todo Colombia, pago contra-entrega.">
+<style>
+:root{--bg:#fff;--soft:#f5f7f8;--ink:#14222b;--mute:#5d6b74;--line:#e1e7ea;--brand:#0f5c6e;--brand-d:#0a4250;--accent:#c9a45c;--wa:#1faa59;--r:14px}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1519;--soft:#151e24;--ink:#eaf0f3;--mute:#9aabb4;--line:#26333b;--brand:#3fb0c8;--brand-d:#2b93aa}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:auto;padding:0 16px}
+header{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:16px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.02em}
+.logo b{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--brand);color:#fff;font-size:15px}
+nav{display:flex;gap:22px;margin-left:auto}
+nav a{color:var(--mute);font-size:15px}nav a:hover{color:var(--brand)}
+.icons{display:flex;gap:6px}
+.ib{position:relative;background:none;border:0;color:var(--ink);width:40px;height:40px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.ib:hover{background:var(--soft)}
+.badge{position:absolute;top:2px;right:0;min-width:18px;height:18px;border-radius:9px;background:var(--accent);color:#1a1405;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+@media(max-width:700px){nav{display:none}.icons{margin-left:auto}}
+.hero{background:linear-gradient(135deg,#0a4250,#0f5c6e 55%,#1b7a8f);color:#fff;padding:72px 0 56px}
+.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.1;margin:0 0 16px;max-width:760px}
+.hero p{font-size:18px;max-width:620px;opacity:.9;margin:0 0 28px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;border:0;font:600 15px inherit;font-family:inherit;cursor:pointer}
+.btn.p{background:#fff;color:var(--brand-d)}.btn.w{background:var(--wa);color:#fff}
+.trust{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.trust span{border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 16px;font-size:14px}
+section{padding:56px 0}
+h2{font-size:28px;margin:0 0 6px}.sub{color:var(--mute);margin:0 0 28px}
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.cat{background:var(--soft);border:1px solid var(--line);border-radius:var(--r);padding:20px;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:.15s}
+.cat:hover{border-color:var(--brand);transform:translateY(-2px)}
+.cat strong{display:block;font-size:18px}.cat small{color:var(--mute)}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:24px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:1px solid var(--line);background:none;color:var(--ink);border-radius:999px;padding:7px 16px;font:inherit;font-size:14px;cursor:pointer}
+.tab.on{background:var(--brand);border-color:var(--brand);color:#fff}
+#q{margin-left:auto;min-width:220px;padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--bg);display:flex;flex-direction:column}
+.car{position:relative;aspect-ratio:4/3;overflow:hidden}
+.slide svg{max-height:80%}.slide{position:absolute;inset:0;display:none;place-items:center;color:#fff;font-weight:700;font-size:20px;text-align:center;padding:12px}
+.slide.on{display:grid}
+.car button{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.35);color:#fff;border:0;width:30px;height:30px;border-radius:50%;cursor:pointer}
+.car .pv{left:8px}.car .nx{right:8px}
+.body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+.body h3{margin:0;font-size:18px}.body p{margin:0;color:var(--mute);font-size:14px;flex:1}
+select{padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;width:100%}
+.row{display:flex;gap:8px}
+.row .btn{flex:1;justify-content:center;padding:10px}
+.btn.o{background:none;border:1px solid var(--line);color:var(--ink)}.btn.g{background:var(--brand);color:#fff}
+.empty{color:var(--mute);padding:30px 0}
+#contacto{background:var(--soft)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.cols h3{margin:0 0 8px;font-size:17px}.cols p{margin:0 0 6px;color:var(--mute)}
+footer{padding:28px 0;font-size:12.5px;color:var(--mute);border-top:1px solid var(--line)}
+.fab{position:fixed;right:18px;bottom:18px;background:var(--wa);color:#fff;border-radius:999px;padding:13px 20px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:30}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:40}
+#toast.on{opacity:1}
+dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);color:var(--ink);max-width:460px;width:calc(100% - 32px);padding:22px}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.li button{background:none;border:0;color:var(--mute);cursor:pointer}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="#inicio"><b>CH</b>CosmetikHud</a>
+  <nav><a href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#productos">Productos</a><a href="#contacto">Contacto</a></nav>
+  <div class="icons">
+    <button class="ib" id="sbtn" aria-label="Buscar"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6"/><path d="M14 14l4 4"/></svg></button>
+    <button class="ib" id="cbtn" aria-label="Carrito"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h3l2 11h11l2-8H6"/><circle cx="9" cy="19" r="1.3"/><circle cx="17" cy="19" r="1.3"/></svg><span class="badge" id="cc">0</span></button>
+  </div>
+</div></header>
+
+<main>
+<section class="hero" id="inicio"><div class="wrap">
+  <h1>Importación directa para profesionales de la medicina estética</h1>
+  <p>Distribuimos al por mayor productos 100% originales, con trazabilidad garantizada, entrega inmediata en Bogotá y envíos a todo el país en 1–3 días hábiles.</p>
+  <div class="btns">
+    <a class="btn p" href="#productos">Ver catálogo</a>
+    <a class="btn w" href="https://wa.me/573209949163" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+  </div>
+  <div class="trust"><span>✔ 100% Originales</span><span>✔ Envíos a todo el país</span><span>✔ Pago Contra-Entrega</span></div>
+</div></section>
+
+<section id="categorias"><div class="wrap">
+  <h2>Categorías</h2><p class="sub">Elija una línea para filtrar el catálogo.</p>
+  <div class="cats" id="cats"></div>
+</div></section>
+
+<section id="productos" style="padding-top:0"><div class="wrap">
+  <h2>Catálogo</h2><p class="sub">Venta exclusiva a profesionales de la salud con registro vigente.</p>
+  <div class="tools"><div class="tabs" id="tabs"></div><input id="q" type="search" placeholder="Buscar producto…" aria-label="Buscar producto"></div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<section id="contacto"><div class="wrap">
+  <h2>Contacto</h2><p class="sub">Asesores disponibles para tomar su pedido.</p>
+  <div class="cols">
+    <div><h3>WhatsApp ventas</h3><p><a href="https://wa.me/573209949163" target="_blank" rel="noopener">+57 320 994 9163</a></p><p>Instagram: <a href="https://www.instagram.com/cosmetikhud/" target="_blank" rel="noopener">@cosmetikhud</a></p></div>
+    <div><h3>Dirección</h3><p>[Dirección del local — por completar]</p><p>Bogotá, Colombia</p></div>
+    <div><h3>Horario</h3><p>[Lunes a viernes — por completar]</p><p>[Sábados — por completar]</p></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  CosmetikHud es un distribuidor independiente y no tiene afiliación, patrocinio ni representación de los propietarios de las marcas mencionadas; todos los nombres y marcas pertenecen a sus respectivos titulares. Los productos se venden exclusivamente a profesionales de la salud con licencia o registro vigente, para uso profesional.
+</div></footer>
+
+<a class="fab" href="https://wa.me/573209949163" target="_blank" rel="noopener">WhatsApp</a>
+<div id="toast"></div>
+<dialog id="dlg"><h3 style="margin-top:0">Su pedido</h3><div id="items"></div>
+  <div class="row" style="margin-top:16px"><button class="btn o" id="close">Cerrar</button><a class="btn w" id="send" target="_blank" rel="noopener">Enviar por WhatsApp</a></div>
+</dialog>
+
+<script>
+// NOTE: descriptions and reference names are placeholders.
+var CATS=[["Toxina Botulínica","#0f5c6e"],["Ácido Hialurónico","#7a4f8f"],["Bioestimulador","#a1731f"]];
+// Fuente: lista de SKUs. "Costo" no se publica en el sitio (es costo interno); agregar precio de venta si se desea mostrar.
+var ROWS=[["TOX-NEU-100","Toxina Botulínica","Neuronox","Medytox"],["AH-ELA-G","Ácido Hialurónico","Elasty G Plus","Dongbang"],["TOX-BOT-100","Toxina Botulínica","Botox","Allergan"],["TOX-XEO-100","Toxina Botulínica","Xeomin","Merz Pharma"],["TOX-INN-100","Toxina Botulínica","Innotox","Medytox"],["TOX-DYS-100","Toxina Botulínica","Dysport","Ipsen"],["TOX-BLX-100","Toxina Botulínica","Botulax","Hugel"],["BIO-PROF-1","Bioestimulador","ProFhilo","IBSA"],["TOX-NEU-100C","Toxina Botulínica","Neuronox","Medytox"],["TOX-NEU-100V","Toxina Botulínica","Neuronox","Medytox"],["TOX-NEU-100J","Toxina Botulínica","Neuronox","Medytox"],["TOX-BOT-100V","Toxina Botulínica","Botox","Allergan"]];
+var LIST=[],IDX={};
+ROWS.forEach(function(r){var k=r[2];if(!(k in IDX)){IDX[k]=LIST.length;LIST.push([r[1],k,[],r[3]])}if(!LIST[IDX[k]][2].length)LIST[IDX[k]][2].push(r[0])});
+var COL={};CATS.forEach(function(c){COL[c[0]]=c[1]});
+var P=LIST.map(function(r){return{id:r[1],cat:r[0],color:COL[r[0]],name:r[1],brand:r[3],desc:r[0]+" · "+r[3]+". Original importada. Consulte disponibilidad y precio con un asesor.",vars:r[2]}});
+var cart=[],cat="Todos",$=function(i){return document.getElementById(i)};
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},1800)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function renderCats(){
+  $("cats").innerHTML=CATS.map(function(c){var n=P.filter(function(p){return p.cat==c[0]}).length;return '<button class="cat" data-c="'+esc(c[0])+'"><strong>'+esc(c[0])+'</strong><small>'+n+' producto'+(n==1?'':'s')+'</small></button>'}).join("");
+  $("tabs").innerHTML=["Todos"].concat(CATS.map(function(c){return c[0]})).map(function(c){return '<button class="tab'+(c==cat?' on':'')+'" data-c="'+esc(c)+'">'+esc(c)+'</button>'}).join("");
+}
+function renderGrid(){
+  var q=$("q").value.trim().toLowerCase();
+  var l=P.filter(function(p){return(cat=="Todos"||p.cat==cat)&&(p.name+" "+p.desc).toLowerCase().indexOf(q)>-1});
+  $("grid").innerHTML=l.length?l.map(function(p,i){
+    var sl='<div class="slide on" style="background:linear-gradient(135deg,'+p.color+',#0e1519)"><svg viewBox="0 0 120 120" width="55%" aria-hidden="true"><rect x="44" y="12" width="32" height="14" rx="3" fill="#fff" opacity=".9"/><rect x="40" y="26" width="40" height="8" rx="2" fill="#c9a45c"/><rect x="38" y="34" width="44" height="72" rx="8" fill="#fff" opacity=".18" stroke="#fff" stroke-width="2"/><rect x="44" y="58" width="32" height="30" rx="3" fill="#fff" opacity=".85"/><text x="60" y="77" text-anchor="middle" font-size="9" font-weight="700" fill="#14222b">'+esc(p.brand)+'</text></svg></div>';
+    return '<article class="card" data-id="'+esc(p.id)+'"><div class="car">'+sl+'</div><div class="body"><h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p><select aria-label="Referencia">'+p.vars.map(function(v){return '<option>'+esc(v)+'</option>'}).join("")+'</select><div class="row"><button class="btn o" data-a="view">Ver</button><button class="btn g" data-a="add">Agregar</button></div></div></article>'}).join(""):'<p class="empty">Sin resultados.</p>';
+}
+function renderCart(){
+  $("cc").textContent=cart.length;
+  $("items").innerHTML=cart.length?cart.map(function(c,i){return '<div class="li"><span>'+esc(c)+'</span><button data-r="'+i+'" aria-label="Quitar">✕</button></div>'}).join(""):'<p class="empty">El carrito está vacío.</p>';
+  $("send").href="https://wa.me/573209949163?text="+encodeURIComponent("Hola, quisiera pedir:\n"+cart.map(function(c){return "- "+c}).join("\n"));
+}
+document.addEventListener("click",function(e){
+  var t=e.target,x;
+  if(x=t.closest(".cat,.tab")){cat=x.dataset.c;renderCats();renderGrid();if(x.classList.contains("cat"))$("productos").scrollIntoView();return}
+  if(x=t.closest(".card")){
+    var a=t.dataset.a,car=x.querySelector(".car");
+    if(a=="add"){cart.push(x.dataset.id+" — "+x.querySelector("select").value);renderCart();toast("Agregado al carrito")}
+    else if(a=="view"){$("q").value=x.dataset.id;renderGrid()}
+    else if(t.closest(".pv,.nx")){var s=[].slice.call(car.querySelectorAll(".slide")),i=s.findIndex(function(z){return z.classList.contains("on")});s[i].classList.remove("on");s[(i+(t.closest(".nx")?1:s.length-1))%s.length].classList.add("on")}
+    return}
+  if(t.dataset.r){cart.splice(+t.dataset.r,1);renderCart()}
+});
+$("q").addEventListener("input",renderGrid);
+$("sbtn").onclick=function(){$("productos").scrollIntoView();$("q").focus()};
+$("cbtn").onclick=function(){$("dlg").showModal()};
+$("close").onclick=function(){$("dlg").close()};
+renderCats();renderGrid();renderCart();
+</script>
+</body>
+</html>

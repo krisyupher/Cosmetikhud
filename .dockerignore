@@ -1,0 +1,7 @@
+node_modules
+dist
+legacy
+graphify-out
+.git
+Dockerfile
+docker-compose.yml

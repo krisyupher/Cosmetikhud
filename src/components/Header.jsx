@@ -15,7 +15,8 @@ export default function Header({ cartCount, onSearch, onCart }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    // Pasada la barra superior, el encabezado se vuelve translúcido y se compacta.
+    const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -53,7 +54,8 @@ export default function Header({ cartCount, onSearch, onCart }) {
             <button className="icon-btn cart-btn" onClick={onCart}
               aria-label={`Tu pedido, ${cartCount} ${cartCount === 1 ? 'producto' : 'productos'}`}>
               <ShoppingBag size={20} strokeWidth={1.6} />
-              {cartCount > 0 && <span className="badge">{cartCount}</span>}
+              {/* key: el contador se vuelve a montar y anima cada cambio */}
+              {cartCount > 0 && <span key={cartCount} className="badge">{cartCount}</span>}
             </button>
             <button className="icon-btn menu-btn" onClick={() => setMenuOpen(o => !o)}
               aria-expanded={menuOpen} aria-controls="main-nav" aria-label="Menú">

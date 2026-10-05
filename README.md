@@ -81,6 +81,15 @@ Tomada de la bitácora de diseño de redes de CosmetikHud:
 - Estilo minimalista: mucho espacio en blanco y una línea dorada como acento.
 - Títulos de sección en mayúsculas, en dos tonos (azul y dorado), con el número en recuadro del catálogo impreso.
 
+## Animaciones
+
+- Curvas suaves (`cubic-bezier(0.25, 1, 0.5, 1)` y `cubic-bezier(0.16, 1, 0.3, 1)`), de 250 a 450 ms en interacciones y hasta 600 ms en apariciones, con escalonado de 80 ms.
+- Portada: título, texto y botones aparecen en secuencia; la imagen entra con un leve zoom y desenfoque.
+- Secciones: aparecen al entrar en pantalla (`useReveal` en `src/lib/reveal.js` con IntersectionObserver); los valores de "Nosotros" de izquierda a derecha y los pasos de "Cómo pedir" uno tras otro.
+- Tarjetas: se elevan al pasar el cursor; el botón Agregar muestra "Agregado" al confirmar.
+- Encabezado: al bajar se vuelve translúcido (desenfoque) y se compacta.
+- Con "reducir movimiento" activado en el sistema, no hay desplazamientos y todo el contenido se muestra de inmediato.
+
 ## Editar el catálogo
 
 El catálogo está en [src/data/products.js](src/data/products.js): SKU, categoría, nombre, laboratorio, presentación, descripción e imagen.

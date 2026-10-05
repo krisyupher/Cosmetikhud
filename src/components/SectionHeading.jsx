@@ -1,8 +1,11 @@
+import { useReveal } from '../lib/reveal'
+
 // Encabezado de sección con el recurso del catálogo impreso:
 // número en recuadro, línea fina y título en dos tonos (azul / dorado).
 export default function SectionHeading({ index, label, title, accent, children }) {
+  const reveal = useReveal()
   return (
-    <div className="sec-head">
+    <div className="sec-head" ref={reveal} data-stagger="">
       <div className="sec-index" aria-hidden="true">
         <span className="sec-num">{index}</span>
         <span className="sec-line" />

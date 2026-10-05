@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import { PRODUCTS } from './data/products'
@@ -136,6 +136,32 @@ describe('App', () => {
     expect(menu).toHaveAttribute('aria-expanded', 'true')
     await userEvent.click(within(screen.getByRole('navigation', { name: 'Principal' })).getByRole('link', { name: 'Productos' }))
     expect(menu).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('confirms on the Agregar button for a moment', () => {
+    vi.useFakeTimers()
+    try {
+      render(<App />)
+      const button = within(cards()[0]).getByRole('button', { name: /^Agregar/ })
+      fireEvent.click(button)
+      expect(button).toHaveClass('is-added')
+      act(() => vi.advanceTimersByTime(1600))
+      expect(button).not.toHaveClass('is-added')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('compacts the header after scrolling past the top bar', () => {
+    render(<App />)
+    const header = screen.getByRole('banner')
+    expect(header).not.toHaveClass('is-scrolled')
+    window.scrollY = 200
+    fireEvent.scroll(window)
+    expect(header).toHaveClass('is-scrolled')
+    window.scrollY = 0
+    fireEvent.scroll(window)
+    expect(header).not.toHaveClass('is-scrolled')
   })
 
   it('keeps the order after a reload', async () => {

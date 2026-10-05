@@ -1,6 +1,7 @@
 import SectionHeading from './SectionHeading'
 import { InstagramIcon } from './BrandIcons'
 import { SITE } from '../data/site'
+import { useReveal } from '../lib/reveal'
 import bienvenida from '../assets/social/bienvenida.webp'
 import lineaEstetica from '../assets/social/linea-estetica.webp'
 import calidadConfianza from '../assets/social/calidad-confianza.webp'
@@ -19,17 +20,19 @@ const POSTS = [
 ]
 
 export default function Social() {
+  const revealLink = useReveal()
+  const revealGrid = useReveal()
   const profile = `https://www.instagram.com/${SITE.instagram}/`
   return (
     <section className="section section--soft" id="instagram">
       <div className="container">
         <div className="social-head">
           <SectionHeading index="05" label="Comunidad" title="Síguenos en" accent="Instagram" />
-          <a className="btn btn-outline" href={profile} target="_blank" rel="noopener">
+          <a className="btn btn-outline" href={profile} target="_blank" rel="noopener" ref={revealLink} data-reveal="">
             <InstagramIcon size={18} /> @{SITE.instagram}
           </a>
         </div>
-        <ul className="social-grid">
+        <ul className="social-grid" ref={revealGrid} data-stagger="">
           {POSTS.map(([src, alt]) => (
             <li key={src}>
               <a className="social-tile" href={profile} target="_blank" rel="noopener">

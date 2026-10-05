@@ -3,8 +3,10 @@ import SectionHeading from './SectionHeading'
 import ProductCard from './ProductCard'
 import { CATEGORIES, PRODUCTS } from '../data/products'
 import { normalize } from '../lib/order'
+import { useReveal } from '../lib/reveal'
 
 export default function Catalog({ category, setCategory, query, setQuery, searchRef, onAdd, onView }) {
+  const reveal = useReveal()
   const q = normalize(query.trim())
   const list = PRODUCTS.filter(p =>
     (category === 'Todos' || p.category === category) &&
@@ -21,7 +23,7 @@ export default function Catalog({ category, setCategory, query, setQuery, search
           se confirman con un asesor.
         </SectionHeading>
 
-        <div className="toolbar">
+        <div className="toolbar" ref={reveal} data-reveal="">
           <div className="tabs" role="group" aria-label="Filtrar por categoría">
             {tabs.map(c => (
               <button key={c} type="button" className={`tab${c === category ? ' is-active' : ''}`}
@@ -48,7 +50,9 @@ export default function Catalog({ category, setCategory, query, setQuery, search
 
         {list.length ? (
           <div className="grid">
-            {list.map(p => <ProductCard key={p.sku} product={p} onAdd={onAdd} onView={onView} />)}
+            {list.map((p, i) => (
+              <ProductCard key={p.sku} product={p} column={i % 4} onAdd={onAdd} onView={onView} />
+            ))}
           </div>
         ) : (
           <div className="empty">

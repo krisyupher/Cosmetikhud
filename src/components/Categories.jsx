@@ -1,17 +1,19 @@
 import { ArrowRight, Droplet, Sparkles, Syringe } from 'lucide-react'
 import SectionHeading from './SectionHeading'
+import { useReveal } from '../lib/reveal'
 import { CATEGORIES, PRODUCTS } from '../data/products'
 
 const ICONS = { syringe: Syringe, droplet: Droplet, sparkles: Sparkles }
 
 export default function Categories({ onPick }) {
+  const reveal = useReveal()
   return (
     <section className="section section--soft" id="categorias">
       <div className="container">
         <SectionHeading index="02" label="Categorías" title="Nuestras" accent="líneas">
           Productos seleccionados para resultados excepcionales.
         </SectionHeading>
-        <div className="cat-grid">
+        <div className="cat-grid" ref={reveal} data-stagger="">
           {CATEGORIES.map((c, i) => {
             const Icon = ICONS[c.icon]
             const n = PRODUCTS.filter(p => p.category === c.name).length

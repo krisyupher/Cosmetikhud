@@ -1,5 +1,5 @@
 import { normalize, orderMessage, productInquiry } from './order'
-import { findProduct } from '../data/products'
+import { findProduct } from '../test/catalog'
 
 const neuronox = findProduct('TOX-NEU-100')
 const botox = findProduct('TOX-BOT-100')

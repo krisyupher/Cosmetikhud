@@ -5,3 +5,8 @@ services:
     ports:
       - "${PORT:-8080}:80"
     restart: unless-stopped
+    # products.json and the product photos are read from the host, so editing them
+    # updates the site on the next refresh without rebuilding the image.
+    volumes:
+      - ./public/data:/usr/share/nginx/html/data:ro
+      - ./public/products:/usr/share/nginx/html/products:ro

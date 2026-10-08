@@ -1,6 +1,6 @@
 import Logo from './Logo'
 import { FacebookIcon, InstagramIcon, WhatsAppIcon } from './BrandIcons'
-import { CATEGORIES } from '../data/products'
+import { CATEGORIES } from '../data/categories'
 import { SITE, whatsappUrl } from '../data/site'
 
 const NAV = [

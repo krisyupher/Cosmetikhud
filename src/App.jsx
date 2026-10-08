@@ -15,6 +15,7 @@ import CartDrawer from './components/CartDrawer'
 import { WhatsAppIcon } from './components/BrandIcons'
 import { whatsappUrl } from './data/site'
 import { useCart } from './lib/useCart'
+import { useCatalog } from './lib/catalog'
 
 export default function App() {
   const [category, setCategory] = useState('Todos')
@@ -22,7 +23,8 @@ export default function App() {
   const [selected, setSelected] = useState(null)
   const [cartOpen, setCartOpen] = useState(false)
   const [toast, setToast] = useState({ text: '', visible: false })
-  const cart = useCart()
+  const { products, status } = useCatalog()
+  const cart = useCart(products)
   const searchRef = useRef(null)
   const toastTimer = useRef()
 
@@ -43,10 +45,10 @@ export default function App() {
       <main>
         <Hero />
         <About />
-        <Categories onPick={pickCategory} />
-        <Catalog category={category} setCategory={setCategory} query={query} setQuery={setQuery}
+        <Categories products={products} onPick={pickCategory} />
+        <Catalog products={products} status={status} category={category} setCategory={setCategory} query={query} setQuery={setQuery}
           searchRef={searchRef} onAdd={add} onView={setSelected} />
-        <Featured onView={setSelected} />
+        <Featured products={products} onView={setSelected} />
         <HowToOrder />
         <Social />
         <Contact />

@@ -1,13 +1,12 @@
 import { PackageCheck, ShieldCheck, Tag, UserRound } from 'lucide-react'
 import { WhatsAppIcon } from './BrandIcons'
-import { findProduct } from '../data/products'
 import { whatsappUrl } from '../data/site'
 import { productInquiry } from '../lib/order'
 import { useReveal } from '../lib/reveal'
 import featured from '../assets/images/featured-neuronox.webp'
 
 // Basado en la pieza de pauta "Post Para Pauta Neuronox" (src/design/Post/Mayo), sin precios.
-const product = findProduct('TOX-NEU-100')
+const SKU = 'TOX-NEU-100'
 
 const POINTS = [
   [Tag, 'Precio especial', 'por volumen'],
@@ -16,9 +15,12 @@ const POINTS = [
   [ShieldCheck, 'Distribución', 'especializada'],
 ]
 
-export default function Featured({ onView }) {
+// Solo se muestra mientras Neuronox esté publicado y disponible en products.json.
+export default function Featured({ products, onView }) {
   const revealCopy = useReveal()
   const revealMedia = useReveal()
+  const product = products.find(p => p.sku === SKU)
+  if (!product?.available) return null
   const inquiry = `${productInquiry(product)} ¿Me comparten los precios especiales por volumen?`
   return (
     <section className="featured" aria-labelledby="featured-title">

@@ -1,11 +1,11 @@
 import { ArrowRight, Droplet, Sparkles, Syringe } from 'lucide-react'
 import SectionHeading from './SectionHeading'
 import { useReveal } from '../lib/reveal'
-import { CATEGORIES, PRODUCTS } from '../data/products'
+import { CATEGORIES } from '../data/categories'
 
 const ICONS = { syringe: Syringe, droplet: Droplet, sparkles: Sparkles }
 
-export default function Categories({ onPick }) {
+export default function Categories({ products, onPick }) {
   const reveal = useReveal()
   return (
     <section className="section section--soft" id="categorias">
@@ -16,7 +16,7 @@ export default function Categories({ onPick }) {
         <div className="cat-grid" ref={reveal} data-stagger="">
           {CATEGORIES.map((c, i) => {
             const Icon = ICONS[c.icon]
-            const n = PRODUCTS.filter(p => p.category === c.name).length
+            const n = products.filter(p => p.category === c.name).length
             return (
               <button key={c.name} type="button" className="cat-card" onClick={() => onPick(c.name)}>
                 <span className="cat-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>

@@ -9,6 +9,8 @@ import { orderMessage } from '../lib/order'
 export default function CartDrawer({ open, onClose, cart, onBrowse }) {
   const [contact, setContact] = useState({ name: '', city: '' })
   const { lines, count, setQty, remove } = cart
+  // Los productos que se agotaron siguen en la lista, pero no se envían en el pedido.
+  const orderLines = lines.filter(l => l.product.available)
   const field = key => ({ value: contact[key], onChange: e => setContact(c => ({ ...c, [key]: e.target.value })) })
 
   return (
@@ -29,12 +31,14 @@ export default function CartDrawer({ open, onClose, cart, onBrowse }) {
             <>
               <ul className="cart-list">
                 {lines.map(({ product, qty }) => (
-                  <li key={product.sku} className="cart-item">
+                  <li key={product.sku} className={`cart-item${product.available ? '' : ' is-unavailable'}`}>
                     <img src={product.image} alt="" width="64" height="64" />
                     <div>
                       <p className="ci-name">{product.name}</p>
                       <p className="ci-sku">{product.presentation} · {product.sku}</p>
-                      <QtyStepper value={qty} onChange={v => setQty(product.sku, v)} label={product.name} />
+                      {product.available
+                        ? <QtyStepper value={qty} onChange={v => setQty(product.sku, v)} label={product.name} />
+                        : <p className="ci-stock">Agotado: no se incluye en el pedido</p>}
                     </div>
                     <button type="button" className="icon-btn" onClick={() => remove(product.sku)}
                       aria-label={`Quitar ${product.name}`}>
@@ -70,8 +74,8 @@ export default function CartDrawer({ open, onClose, cart, onBrowse }) {
             <Info size={16} strokeWidth={1.6} aria-hidden="true" />
             Un asesor confirmará disponibilidad, precio y entrega por WhatsApp.
           </p>
-          {lines.length ? (
-            <a className="btn btn-primary btn-block" href={whatsappUrl(orderMessage(lines, contact))}
+          {orderLines.length ? (
+            <a className="btn btn-primary btn-block" href={whatsappUrl(orderMessage(orderLines, contact))}
               target="_blank" rel="noopener">
               <WhatsAppIcon size={18} /> Enviar pedido por WhatsApp
             </a>

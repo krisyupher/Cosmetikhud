@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { extname, join } from 'node:path'
-import { PRODUCTS } from './data/products'
+import { CATEGORY_NAMES } from './data/categories'
 
 const ROOT = process.cwd() // Vitest se ejecuta desde la raíz del proyecto
 const SRC = join(ROOT, 'src')
@@ -21,10 +21,34 @@ describe('project setup', () => {
     expect(offenders).toEqual([])
   })
 
-  it('bundles every product image from src/assets/products', () => {
-    PRODUCTS.forEach(p => {
-      expect(p.image, p.sku).toMatch(/^\/src\/assets\/products\/[\w-]+\.webp$/)
-      expect(existsSync(join(ROOT, p.image)), p.image).toBe(true)
+  describe('public/data/products.json', () => {
+    const products = JSON.parse(readFileSync(join(ROOT, 'public/data/products.json'), 'utf8'))
+    const required = ['sku', 'category', 'name', 'lab', 'presentation', 'description', 'image']
+
+    it('has every required field on every product', () => {
+      products.forEach(p => required.forEach(key => expect(p[key], `${p.sku}.${key}`).toBeTruthy()))
+    })
+
+    it('uses unique SKUs and known categories', () => {
+      const skus = products.map(p => p.sku)
+      expect(new Set(skus).size).toBe(skus.length)
+      products.forEach(p => expect(CATEGORY_NAMES, p.sku).toContain(p.category))
+    })
+
+    it('points every image to a file in public/products', () => {
+      products.forEach(p => expect(existsSync(join(ROOT, 'public/products', p.image)), p.image).toBe(true))
+    })
+
+    it('never contains prices or costs', () => {
+      const text = JSON.stringify(products)
+      expect(text).not.toMatch(/"(price|precio|cost|costo|valor)[a-z]*"\s*:/i)
+      expect(text).not.toMatch(/\$\s?\d/)
+    })
+
+    it('only uses true/false for visible and available', () => {
+      products.forEach(p => ['visible', 'available'].forEach(key => {
+        if (key in p) expect(typeof p[key], `${p.sku}.${key}`).toBe('boolean')
+      }))
     })
   })
 

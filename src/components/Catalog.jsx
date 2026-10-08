@@ -1,19 +1,21 @@
-import { Search, SearchX, X } from 'lucide-react'
+import { Search, SearchX, TriangleAlert, X } from 'lucide-react'
 import SectionHeading from './SectionHeading'
 import ProductCard from './ProductCard'
-import { CATEGORIES, PRODUCTS } from '../data/products'
+import { CATEGORIES } from '../data/categories'
+import { whatsappUrl } from '../data/site'
+import { WhatsAppIcon } from './BrandIcons'
 import { normalize } from '../lib/order'
 import { useReveal } from '../lib/reveal'
 
-export default function Catalog({ category, setCategory, query, setQuery, searchRef, onAdd, onView }) {
+export default function Catalog({ products, status, category, setCategory, query, setQuery, searchRef, onAdd, onView }) {
   const reveal = useReveal()
   const q = normalize(query.trim())
-  const list = PRODUCTS.filter(p =>
+  const list = products.filter(p =>
     (category === 'Todos' || p.category === category) &&
     normalize(`${p.name} ${p.category} ${p.lab} ${p.description}`).includes(q))
 
   const tabs = ['Todos', ...CATEGORIES.map(c => c.name)]
-  const countFor = c => (c === 'Todos' ? PRODUCTS.length : PRODUCTS.filter(p => p.category === c).length)
+  const countFor = c => (c === 'Todos' ? products.length : products.filter(p => p.category === c).length)
 
   return (
     <section className="section" id="productos">
@@ -45,10 +47,23 @@ export default function Catalog({ category, setCategory, query, setQuery, search
         </div>
 
         <p className="result-count" aria-live="polite">
-          {list.length} {list.length === 1 ? 'producto' : 'productos'}
+          {status === 'ready' && `${list.length} ${list.length === 1 ? 'producto' : 'productos'}`}
         </p>
 
-        {list.length ? (
+        {status === 'loading' ? (
+          <div className="grid" aria-busy="true" aria-label="Cargando productos">
+            {[0, 1, 2, 3].map(i => <div key={i} className="card-placeholder" />)}
+          </div>
+        ) : status === 'error' ? (
+          <div className="empty">
+            <TriangleAlert size={32} strokeWidth={1.4} aria-hidden="true" />
+            <p>No pudimos cargar el catálogo. Escríbenos y te enviamos la lista de productos.</p>
+            <a className="btn btn-primary btn-sm" href={whatsappUrl('Hola CosmetikHud, quisiera conocer el catálogo de productos.')}
+              target="_blank" rel="noopener">
+              <WhatsAppIcon size={16} /> Pedir el catálogo
+            </a>
+          </div>
+        ) : list.length ? (
           <div className="grid">
             {list.map((p, i) => (
               <ProductCard key={p.sku} product={p} column={i % 4} onAdd={onAdd} onView={onView} />

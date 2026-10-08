@@ -8,7 +8,7 @@ import { productInquiry } from '../lib/order'
 
 function ProductDetail({ product, onAdd, onClose }) {
   const [qty, setQty] = useState(1)
-  const { name, category, lab, presentation, description, sku, image } = product
+  const { name, category, lab, presentation, description, sku, image, available } = product
 
   return (
     <div className="pd">
@@ -17,6 +17,7 @@ function ProductDetail({ product, onAdd, onClose }) {
       </button>
       <div className="pd-media">
         <img src={image} alt={`${name}, ${presentation}`} width="640" height="640" />
+        {!available && <span className="stock-badge">Agotado</span>}
       </div>
       <div className="pd-info">
         <p className="card-cat">{category}</p>
@@ -28,19 +29,26 @@ function ProductDetail({ product, onAdd, onClose }) {
           <div><dt>Presentación</dt><dd>{presentation}</dd></div>
           <div><dt>Referencia</dt><dd>{sku}</dd></div>
         </dl>
-        <div className="pd-qty">
-          <span>Cantidad</span>
-          <QtyStepper value={qty} onChange={v => setQty(Math.max(1, v))} label={name} />
-        </div>
+        {available && (
+          <div className="pd-qty">
+            <span>Cantidad</span>
+            <QtyStepper value={qty} onChange={v => setQty(Math.max(1, v))} label={name} />
+          </div>
+        )}
         <div className="pd-actions">
-          <button type="button" className="btn btn-primary" onClick={() => { onAdd(product, qty); onClose() }}>
-            Agregar al pedido
+          <button type="button" className="btn btn-primary" disabled={!available}
+            onClick={() => { onAdd(product, qty); onClose() }}>
+            {available ? 'Agregar al pedido' : 'Agotado'}
           </button>
           <a className="btn btn-outline" href={whatsappUrl(productInquiry(product))} target="_blank" rel="noopener">
             <WhatsAppIcon size={18} /> Consultar
           </a>
         </div>
-        <p className="note">Precio y disponibilidad se confirman con un asesor por WhatsApp.</p>
+        <p className="note">
+          {available
+            ? 'Precio y disponibilidad se confirman con un asesor por WhatsApp.'
+            : 'Agotado temporalmente: consulta disponibilidad por WhatsApp.'}
+        </p>
       </div>
     </div>
   )

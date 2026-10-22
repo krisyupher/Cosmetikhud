@@ -19,7 +19,7 @@
     "description": "Toxina botulínica tipo A liofilizada para uso profesional.",
     "image": "botox.webp",
     "visible": true,
-    "available": false
+    "available": true
   },
   {
     "sku": "TOX-XEO-100",
@@ -30,7 +30,7 @@
     "description": "Toxina botulínica tipo A liofilizada para uso profesional.",
     "image": "xeomin.webp",
     "visible": true,
-    "available": false
+    "available": true
   },
   {
     "sku": "TOX-INN-100",

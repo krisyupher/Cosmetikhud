@@ -37,6 +37,7 @@ CosmetikHud: Spanish-language B2B storefront for a Colombian importer of aesthet
 
 - Prices and costs are intentionally never shown on the site (the source SKU list had internal "Costo" and the social posts show promo prices; the owner said not to display them). Cards say to consult price with an advisor.
 - One SKU per product is shown (Neuronox and Botox have extra suffixed SKUs in the owner's list that were deliberately dropped).
+- Cash on delivery (pago contra entrega) and free first delivery are Bogotá only; the rest of the country ships in 1–3 business days with shipping cost quoted by an advisor. Never claim nationwide cash on delivery.
 - Opening hours are pending: set `SITE.hours` in `src/data/site.js` to show them.
 - The footer disclaimer (no affiliation with brand owners, professionals-only sale) is required; keep it.
 - `products.json` must never contain prices (the printed catalog has them); `src/project.test.js` checks it. In Docker, `public/data` and `public/products` are bind-mounted and `/data/` is served with `Cache-Control: no-cache`.

@@ -624,7 +624,9 @@ a.contact-card:hover::after, a.contact-card:focus-visible::after { opacity: 1; }
 .step:not([data-revealed])::before { scale: 0 1; }
 .step-num { display: block; font-size: 46px; font-weight: 300; line-height: 1; letter-spacing: -0.02em; color: var(--gold); }
 .step h3 { margin: 20px 0 8px; font-size: 14px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
-.step p { font-size: 15px; color: var(--on-navy); }
+.step p, .step-list { font-size: 15px; color: var(--on-navy); }
+.step-list { display: grid; gap: 8px; }
+.step-list strong { color: #fff; font-weight: 600; }
 
 /* ---------- Contacto ---------- */
 .contact-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(40px, 6vw, 88px); align-items: center; }

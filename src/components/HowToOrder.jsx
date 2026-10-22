@@ -6,7 +6,12 @@ import { useReveal } from '../lib/reveal'
 const STEPS = [
   ['Arma tu pedido', 'Agrega desde el catálogo los productos y las cantidades que necesitas.'],
   ['Envíalo por WhatsApp', 'Un asesor confirma disponibilidad, precio y datos de entrega.'],
-  ['Recibe y paga', 'Entrega inmediata en Bogotá y de 1 a 3 días hábiles en el resto del país, con pago contra entrega.'],
+  ['Recibe tu pedido', (
+    <ul className="step-list">
+      <li><strong>Bogotá:</strong> entrega inmediata, pago contra entrega y domicilio gratis en tu primera compra.</li>
+      <li><strong>Resto del país:</strong> entrega de 1 a 3 días hábiles. Consulta el costo de envío con tu asesor.</li>
+    </ul>
+  )],
 ]
 
 // Cada paso se revela al entrar en pantalla; en escritorio, --step los escalona en secuencia.
@@ -16,7 +21,7 @@ function Step({ index, title, text }) {
     <li className="step" ref={reveal} data-stagger="" style={{ '--step': index }}>
       <span className="step-num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
       <h3>{title}</h3>
-      <p>{text}</p>
+      {typeof text === 'string' ? <p>{text}</p> : text}
     </li>
   )
 }

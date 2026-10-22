@@ -551,7 +551,14 @@ a.contact-card:hover::after, a.contact-card:focus-visible::after { opacity: 1; }
 .specs div { display: grid; grid-template-columns: 104px 1fr; gap: 8px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; line-height: 1.45; }
 .specs dt { font-weight: 600; color: var(--navy); }
 .specs dd { margin: 0; color: var(--text); }
-.card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; }
+/* minmax(0, 1fr): los botones nunca empujan la cuadrícula fuera de la tarjeta. */
+.card-body { container-type: inline-size; }
+.card-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: auto; }
+.card-actions .btn { min-width: 0; padding: 0 10px; }
+/* Tarjetas angostas: un botón debajo del otro. */
+@container (max-width: 220px) {
+  .card-actions { grid-template-columns: minmax(0, 1fr); }
+}
 
 .empty { display: grid; justify-items: center; gap: 14px; padding: 56px 16px; border: 1px dashed var(--mist); border-radius: var(--radius); color: var(--muted); text-align: center; }
 .empty svg { color: var(--gold); }

@@ -28,7 +28,7 @@ export default function Header({ cartCount, onSearch, onCart }) {
         <div className="container topbar-inner">
           <p>Venta exclusiva para profesionales de la salud</p>
           <p className="topbar-extra">
-            Envíos a todo Colombia <span aria-hidden="true">·</span> Pago contra entrega{' '}
+            Envíos a todo Colombia <span aria-hidden="true">·</span> Pago contra entrega en Bogotá{' '}
             <span aria-hidden="true">·</span>{' '}
             <a href={whatsappUrl()} target="_blank" rel="noopener">WhatsApp {SITE.phoneDisplay}</a>
           </p>

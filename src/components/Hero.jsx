@@ -5,7 +5,7 @@ import hero from '../assets/images/hero.webp'
 
 const TRUST = [
   [ShieldCheck, '100% originales', 'Productos certificados'],
-  [Banknote, 'Pago contra entrega', 'En todo el país'],
+  [Banknote, 'Pago contra entrega', 'En Bogotá'],
   [Truck, 'Envíos de 1 a 3 días', 'Inmediato en Bogotá'],
 ]
 
